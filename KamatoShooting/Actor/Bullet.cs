@@ -1,0 +1,55 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+
+using KamatoShooting.Device;
+using KamatoShooting.Def;
+using KamatoShooting.Scene;
+using KamatoShooting.Util;
+
+namespace KamatoShooting.Actor
+{
+	class Bullet : Character
+	{
+		private Vector2 velocity;
+		public Bullet(Vector2 position, Vector2 velocity, ActorSide side) : base("gyoza",position,16, side)
+		{
+			this.velocity = velocity;
+		}
+
+		public override void Initialize()
+		{
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			position += velocity;
+      if (position.Y > Screen.Height) { Extinction(); }
+		}
+
+		public override void Shutdown()
+		{
+      characterManager.Add(new BulletExplosion(position));
+		}
+
+		public override void Hit(Character other)
+		{
+      if (other is Bullet) { return; }
+      other.Damage(1);
+      Extinction();
+		}
+
+    public override void Draw()
+    {
+      base.Draw();
+    }
+
+
+  }
+}
+
