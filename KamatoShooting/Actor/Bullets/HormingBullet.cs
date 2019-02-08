@@ -14,7 +14,7 @@ namespace KamatoShooting.Actor
     private float speed;
     private float angle { get { return (float)Math.Atan2(direction.Y, direction.X); } }
 
-    public HormingBullet(Vector2 position) : base("gyoza", position, 8, ActorSide.Player, 1, 0)
+    public HormingBullet(Vector2 position) : base("gyoza", position, 16,16, ActorSide.Player, 1, 0)
     {
     }
 
@@ -37,7 +37,7 @@ namespace KamatoShooting.Actor
 
       if (target != null && !target.IsDead())
       {
-        direction = (target.Position - position);
+        direction = (target.centerPosition - position);
         direction.Normalize();
       }
       MoveForward();
@@ -56,7 +56,7 @@ namespace KamatoShooting.Actor
       characterManager.GetCharacters(ActorSide.Enemy).Where(e=>e is Enemy).ToList().ForEach(e=> {
         if (target == null) { target = e; }
         else {
-          if ((e.Position - Position).LengthSquared() < (target.Position - Position).LengthSquared())
+          if ((e.centerPosition - position).LengthSquared() < (target.centerPosition - position).LengthSquared())
           { target = e; }
         }
       });

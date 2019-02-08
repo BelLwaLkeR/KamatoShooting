@@ -20,7 +20,7 @@ namespace KamatoShooting.Actor
     private Timer shotTimer;
 
     public Enemy(Vector2 position, int endurance = 200) 
-      : base("black", position, 64, ActorSide.Enemy, endurance, 1)
+      : base("black", position, 64,64, ActorSide.Enemy, endurance, 1)
     {
       characterManager.Add(this);
       pattern = new PatternUpdate();
@@ -81,7 +81,7 @@ namespace KamatoShooting.Actor
     private void Shot()
     {
       Vector2 velocity = new Vector2(0,1);
-      new EnemyBullet(position, velocity);
+      new EnemyBullet(centerPosition, velocity);
     }
 
 

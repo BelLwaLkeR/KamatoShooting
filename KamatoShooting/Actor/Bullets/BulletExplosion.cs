@@ -20,7 +20,7 @@ namespace KamatoShooting.Actor
       this(position, 0)
     {
     }
-    public BulletExplosion(Vector2 position, float angle) : base("gyoza", position, 0, ActorSide.Natural, 999, 0)
+    public BulletExplosion(Vector2 position, float angle) : base("gyoza", position, Vector2.Zero,0, ActorSide.Natural, 999, 0)
     {
       centerPosition = Vector2.One * 8;
       alpha = 1;

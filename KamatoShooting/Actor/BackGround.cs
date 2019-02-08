@@ -14,7 +14,7 @@ namespace KamatoShooting.Actor
     private float scrollSpeed;
     private int imageHeight;
 
-    public BackGround(float scrollSpeed,float y):base("stage", Vector2.Zero, 0, ActorSide.Natural)
+    public BackGround(float scrollSpeed,float y):base("stage", Vector2.Zero,Vector2.Zero, 0, ActorSide.Natural)
     {
       this.scrollSpeed = scrollSpeed;
       imageHeight = GameDevice.Instance().GetRenderer().GetImage(assetName).Height;

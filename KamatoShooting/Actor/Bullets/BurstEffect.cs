@@ -16,7 +16,7 @@ namespace KamatoShooting.Actor
 		private int counter;
 		private readonly int pictureNum = 7;
 
-		public BurstEffect(Vector2 position) : base("pipo-btleffect",position,0, ActorSide.Natural)
+		public BurstEffect(Vector2 position) : base("pipo-btleffect",position,0,0, ActorSide.Natural)
 		{
 		}
 

@@ -21,7 +21,7 @@ namespace KamatoShooting.Actor
 		private int displayCount;
 
     public EnemyBlack() 
-      : base("black",Vector2.Zero, 64, ActorSide.Enemy, 1, 1)
+      : base("black",Vector2.Zero,64, 64, ActorSide.Enemy, 1, 1)
     {
       
     }

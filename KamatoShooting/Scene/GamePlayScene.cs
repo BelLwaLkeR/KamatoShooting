@@ -10,6 +10,7 @@ using KamatoShooting.Device;
 using KamatoShooting.Util;
 using Microsoft.Xna.Framework.Input;
 using KamatoShooting.Actor.Enemys;
+using KamatoShooting.Actor.Bullets;
 
 namespace KamatoShooting.Scene
 {
@@ -56,9 +57,11 @@ namespace KamatoShooting.Scene
       float scrollSpeed = 1;
       characterManager.Add(new BackGround(scrollSpeed, 0));
       characterManager.Add(new BackGround(scrollSpeed, -1));
+
       player = new Player(new Vector2(460, 400));
       characterManager.Add(player);
       SetPattern();
+      //new NoMoveEnemy(Vector2.Zero);
     }
 
     public bool IsEnd()

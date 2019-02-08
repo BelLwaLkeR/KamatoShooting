@@ -48,6 +48,7 @@
     <Compile Include="Actor\Bullets\BulletExplosion.cs" />
     <Compile Include="Actor\Bullets\BurstEffect.cs" />
     <Compile Include="Actor\Bullets\EnemyBullet.cs" />
+    <Compile Include="Actor\Bullets\NoMoveEnemy.cs" />
     <Compile Include="Actor\Character.cs" />
     <Compile Include="Actor\CharacterManager.cs" />
     <Compile Include="Actor\Enemys\Enemy.cs" />

@@ -19,7 +19,7 @@ namespace KamatoShooting.Actor
     private Timer shotTimer;
     
 
-		public Player(Vector2 position) : base("kamato",position,32,ActorSide.Player)
+		public Player(Vector2 position) : base("kamato",position,Vector2.One*32,32,ActorSide.Player)
 		{
       shotTimer = new CountDownTimer(0.1f);
       characterManager = CharacterManager.GetInstance();

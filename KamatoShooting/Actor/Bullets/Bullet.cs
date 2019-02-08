@@ -17,7 +17,7 @@ namespace KamatoShooting.Actor
 	class Bullet : Character
 	{
 		private Vector2 velocity;
-		public Bullet(Vector2 position, Vector2 velocity, ActorSide side) : base("gyoza",position,16, side)
+		public Bullet(Vector2 position, Vector2 velocity, ActorSide side) : base("gyoza",position,16,16, side)
 		{
 			this.velocity = velocity;
 		}
