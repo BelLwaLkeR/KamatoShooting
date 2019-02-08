@@ -21,6 +21,10 @@ namespace KamatoShooting.Actor
       position = new Vector2(0,imageHeight*y);
     }
 
+    public override void Hit(Character other)
+    {
+    }
+
     public override void Initialize()
     {
     }

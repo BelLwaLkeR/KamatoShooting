@@ -29,7 +29,7 @@ namespace KamatoShooting.Actor
 		public override void Update(GameTime gameTime)
 		{
 			position += velocity;
-      if (position.Y > Screen.Height) { Extinction(); }
+      if (position.Y > Screen.Height) { Die(); }
 		}
 
 		public override void Shutdown()
@@ -39,9 +39,7 @@ namespace KamatoShooting.Actor
 
 		public override void Hit(Character other)
 		{
-      if (other is Bullet) { return; }
-      other.Damage(1);
-      Extinction();
+      Die();
 		}
 
     public override void Draw()

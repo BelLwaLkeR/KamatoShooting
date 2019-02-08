@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace KamatoShooting.Actor
 {
-  public delegate void MovePattern();
+  public delegate void PatternMethod();
   struct Pattern
   {
     public Timer timer;
-    public MovePattern patternMethod;
+    public PatternMethod patternMethod;
 
-    public Pattern(Timer timer, MovePattern patternMethod)
+    public Pattern(Timer timer, PatternMethod patternMethod)
     {
       this.timer = timer;
       this.patternMethod = patternMethod;

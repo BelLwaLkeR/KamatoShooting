@@ -65,6 +65,7 @@ namespace KamatoShooting
       renderer.LoadContent("white");
       renderer.LoadContent("particle");
       renderer.LoadContent("particleBlue");
+      renderer.LoadContent("EnemyBullet");
 
 
 

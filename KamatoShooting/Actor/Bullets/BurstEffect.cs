@@ -46,7 +46,7 @@ namespace KamatoShooting.Actor
 				timer.Initialize();
 				if (counter > pictureNum)
 				{
-          Extinction();
+          Die();
 				}
 			}
 			

@@ -22,12 +22,13 @@ namespace KamatoShooting.Actor
     
     protected State state;
     protected Vector2 position;
+    public Vector2 Position { get { return position; } }
 		protected string assetName;
     public ActorSide actorSide { protected set; get; }
     protected int score;
     protected CharacterManager characterManager;
     private float size;
-    private bool isLost;
+    public bool isDead { get { return IsDead(); } set { if (value) { endurance = 0; } } }
     public int endurance { protected set; get; }
     public Renderer renderer;
 
@@ -39,7 +40,7 @@ namespace KamatoShooting.Actor
     /// <param name="actorSide">敵か味方か</param>
     /// <param name="endurance">耐久値</param>
     /// <param name="score">倒した時のスコア</param>
-    public Character(string assetName, Vector2 position, float size, ActorSide actorSide ,int endurance = 1, int score = 1)
+    public Character(string assetName, Vector2 position, float size, ActorSide actorSide ,int endurance = 1, int score=1)
 		{
       this.actorSide = actorSide;
 			this.assetName = assetName;
@@ -47,7 +48,6 @@ namespace KamatoShooting.Actor
       this.size = size;
       this.endurance = endurance;
       characterManager = CharacterManager.GetInstance();
-      isLost = false;
       GameDevice device = GameDevice.Instance();
       renderer = device.GetRenderer();
       this.position = position;
@@ -56,17 +56,7 @@ namespace KamatoShooting.Actor
 		public abstract void Initialize();
 		public abstract void Update(GameTime gameTime);
 		public abstract void Shutdown();
-    public virtual void Hit(Character other)
-    {
-      other.Damage(1);
-      Damage(1);
-    }
-
-		public bool IsLost()
-		{
-			return isLost;
-		}
-
+    public abstract void Hit(Character other);
     public bool IsDead()
     {
       return endurance <= 0;
@@ -85,18 +75,18 @@ namespace KamatoShooting.Actor
       return lengthSqrd <= radiusSum * radiusSum;
 		}
 
-    public void Extinction()
-    {
-      isLost = true;
-    }
-
     public void Damage(int damage)
     {
       endurance -= damage;
       if (!IsDead()) { return; }
     }
 
+    public void Die()
+    {
+      isDead = true;
+    }
 
-	}
+
+  }
 }
  

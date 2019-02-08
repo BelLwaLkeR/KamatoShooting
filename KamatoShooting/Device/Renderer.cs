@@ -120,6 +120,47 @@ namespace KamatoShooting.Device
           Color.White * alpha);//透明値
     }
 
+    /// <summary>
+    /// 画像を描画する
+    /// </summary>
+    /// <param name="assetName">アセット名</param>
+    /// <param name="position">描画位置</param>
+    /// <param name="centerPosition">中央位置</param>
+    /// <param name="rotateAngle">角度[Rad]</param>
+    /// <param name="alpha">アルファ値</param>
+    public void DrawTexture(string assetName, Vector2 position, Vector2 centerPosition, float rotateAngle, float alpha = 1.0f)
+    {
+      DrawTexture(assetName, position, centerPosition, rotateAngle, Vector2.One, alpha);
+    }
+
+    /// <summary>
+    /// 画像を描画する
+    /// </summary>
+    /// <param name="assetName">アセット名</param>
+    /// <param name="position">描画位置</param>
+    /// <param name="centerPosition">中央位置</param>
+    /// <param name="scale">拡大率</param>
+    /// <param name="alpha">アルファ値</param>
+    public void DrawTexture(string assetName, Vector2 position, Vector2 centerPosition, Vector2 scale, float alpha = 1.0f)
+    {
+      DrawTexture(assetName, position, centerPosition, 0, scale, alpha);
+    }
+
+    /// <summary>
+    /// 画像を描画する
+    /// </summary>
+    /// <param name="assetName">アセット名</param>
+    /// <param name="position">描画位置</param>
+    /// <param name="centerPosition">中央位置</param>
+    /// <param name="rotateAngle">角度[Rad]</param>
+    /// <param name="scale">拡大率</param>
+    /// <param name="alpha">アルファ値</param>
+    public void DrawTexture(string assetName, Vector2 position, Vector2 centerPosition, float rotateAngle, Vector2 scale, float alpha = 1.0f)
+    {
+      DrawTexture(assetName, position, null, rotateAngle, centerPosition, scale, SpriteEffects.None, 0, alpha);
+    }
+
+
     public void DrawTexture(
       string assetName,
       Vector2 position,

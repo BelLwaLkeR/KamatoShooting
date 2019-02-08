@@ -21,7 +21,7 @@ namespace KamatoShooting.Actor
 
 		public Player(Vector2 position) : base("kamato",position,32,ActorSide.Player)
 		{
-      shotTimer = new CountDownTimer(0.2f);
+      shotTimer = new CountDownTimer(0.1f);
       characterManager = CharacterManager.GetInstance();
 		}
 
@@ -55,16 +55,24 @@ namespace KamatoShooting.Actor
     public void Shot()
     {
       if (!shotTimer.IsTime()) { return; }
-      for (int i = 0; i < 3; i++)
+      shotTimer.Initialize();
+
+      for (int i = -1; i <= 1; i += 2)
       {
-        shotTimer.Initialize();
-        Vector2 bulletPosition = position + new Vector2(-8 + i * 16, ((i + 1) % 2) * 8 - 16);
-        characterManager.Add(new Bullet(bulletPosition, new Vector2(0, -10), ActorSide.Player));
+        Vector2 bulletPosition = position + new Vector2(8 + i * 4, i * 4 - 8);
+        //      characterManager.Add(new HormingBullet(bulletPosition, new Vector2(0, -10), ActorSide.Player));
+        characterManager.Add(new HormingBullet(bulletPosition));
+      }
+
+      for (int i = -1; i <= 1; i += 2)
+      {
+        Vector2 bulletPosition = position + new Vector2(-4 + i * 4, i * 4 - 8);
+        characterManager.Add(new HormingBullet(bulletPosition));
       }
     }
 
 
-		public override void Shutdown()
+    public override void Shutdown()
 		{
 
 		}
@@ -74,5 +82,12 @@ namespace KamatoShooting.Actor
 		{
 			renderer.DrawTexture(assetName, position, motion.DrawingRange());
 		}
-	}
+
+    public override void Hit(Character other)
+    {
+      if (other.actorSide != ActorSide.Enemy) { return; }
+      if (other is Enemy) { Die(); }
+      Damage(1);
+    }
+  }
 }

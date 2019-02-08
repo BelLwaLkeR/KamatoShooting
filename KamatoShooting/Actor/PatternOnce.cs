@@ -8,31 +8,18 @@ using System.Threading.Tasks;
 
 namespace KamatoShooting.Actor
 {
-  class PatternOnce
+  class PatternOnce:APattern
   {
-    private List<Pattern> patterns;
-    private int patternCount;
     private bool done;
 
-    public PatternOnce()
+    public override void Initialize()
     {
-      patterns = new List<Pattern>();
-      Initialize();
-
-    }
-
-    public void Initialize()
-    {
-      patternCount = 0;
       done = false;
+      base.Initialize();
     }
 
-    public void AddPatern(Timer timer, MovePattern pattern)
-    {
-      patterns.Add(new Pattern(timer, pattern));
-    }
 
-    public void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
       if (patterns.Count <= patternCount) { return; }
       patterns[patternCount].timer.Update(gameTime);

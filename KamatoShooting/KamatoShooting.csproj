@@ -42,14 +42,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actor\ActorSide.cs" />
+    <Compile Include="Actor\APattern.cs" />
     <Compile Include="Actor\BackGround.cs" />
-    <Compile Include="Actor\Bullet.cs" />
-    <Compile Include="Actor\BulletExplosion.cs" />
-    <Compile Include="Actor\BurstEffect.cs" />
+    <Compile Include="Actor\Bullets\Bullet.cs" />
+    <Compile Include="Actor\Bullets\BulletExplosion.cs" />
+    <Compile Include="Actor\Bullets\BurstEffect.cs" />
+    <Compile Include="Actor\Bullets\EnemyBullet.cs" />
     <Compile Include="Actor\Character.cs" />
     <Compile Include="Actor\CharacterManager.cs" />
-    <Compile Include="Actor\Enemy.cs" />
-    <Compile Include="Actor\EnemyBlack.cs" />
+    <Compile Include="Actor\Enemys\Enemy.cs" />
+    <Compile Include="Actor\Enemys\Enemy1.cs" />
+    <Compile Include="Actor\Enemys\EnemyBlack.cs" />
+    <Compile Include="Actor\Bullets\HormingBullet.cs" />
     <Compile Include="Actor\Pattern.cs" />
     <Compile Include="Actor\PatternUpdate.cs" />
     <Compile Include="Actor\PatternOnce.cs" />

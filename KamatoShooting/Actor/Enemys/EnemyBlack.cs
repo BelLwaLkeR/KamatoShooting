@@ -73,7 +73,7 @@ namespace KamatoShooting.Actor
 		private void DeadUpdate(GameTime gameTime)
 		{
 			characterManager.Add(new BurstEffect(position));
-      Extinction();
+      Die();
 		}
 		private void DeadDraw( )
 		{
@@ -107,7 +107,6 @@ namespace KamatoShooting.Actor
 			{
 				return;
 			}
-      base.Hit(other);
       if (IsDead())
       {
         state = State.Dying;

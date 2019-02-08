@@ -9,6 +9,7 @@ using KamatoShooting.Def;
 using KamatoShooting.Device;
 using KamatoShooting.Util;
 using Microsoft.Xna.Framework.Input;
+using KamatoShooting.Actor.Enemys;
 
 namespace KamatoShooting.Scene
 {
@@ -94,15 +95,32 @@ namespace KamatoShooting.Scene
     private void SetPattern()
     {
       pattern = new PatternOnce();
-      pattern.AddPatern(new CountDownTimer(3), () => { });
-      pattern.AddPatern(new CountDownTimer(3), () => { Enumerable.Range(0, 5).ToList().ForEach(e => { SpawnEnemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
-      pattern.AddPatern(new CountDownTimer(3), () => { Enumerable.Range(0, 5).ToList().ForEach(e => { SpawnEnemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
-      pattern.AddPatern(new CountDownTimer(3), () => { Enumerable.Range(0, 5).ToList().ForEach(e => { SpawnEnemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
+      SetWait(5);
+      SetWave1();
+      SetWait(3);
+      SetWave1();
+      SetWait(10);
+      SetWave2();
     }
 
-    private void SpawnEnemy(Vector2 position)
+    private void SetWait(float sec)
     {
-      characterManager.Add(new Enemy(position));
+      pattern.AddPattern(sec, () => { });
     }
-	}
+
+    private void SetWave1()
+    {
+      for (int i = 0; i < 5; i++)
+      {
+        pattern.AddPattern(0.2f, () => { new Enemy1(new Vector2(100, -64)); });
+      }
+    }
+    private void SetWave2()
+    {
+      pattern.AddPattern(8, () => { Enumerable.Range(0, 5).ToList().ForEach(e => { new Enemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
+      pattern.AddPattern(8, () => { Enumerable.Range(0, 5).ToList().ForEach(e => { new Enemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
+      pattern.AddPattern(8, () => { Enumerable.Range(0, 5).ToList().ForEach(e => { new Enemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
+
+    }
+  }
 }

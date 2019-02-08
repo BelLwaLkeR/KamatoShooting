@@ -12,9 +12,7 @@ namespace KamatoShooting.Actor
 	{
     private static CharacterManager instance;
 
-		private List<Character> playerSide;
-		private List<Character> enemySide;
-    private List<Character> naturalSide;
+    private List<List<Character>> characters;
 
 		private List<Character> addNewCharacters;
 
@@ -32,43 +30,45 @@ namespace KamatoShooting.Actor
 
 		public void Initialize()
 		{
-			if (playerSide != null)
-			{
-				playerSide.Clear();
-			}
-			else
-			{
-				playerSide = new List<Character>();
-			}
-
-      if (enemySide != null)
-      {
-        enemySide.Clear();
-      }
-      else
-      {
-        enemySide = new List<Character>();
-      }
-      if (naturalSide != null)
-      {
-        naturalSide.Clear();
-      }
-      else
-      {
-        naturalSide = new List<Character>();
-      }
-
-      if (addNewCharacters != null)
-			{
-				addNewCharacters.Clear();
-			}
-			else
-			{
-				addNewCharacters = new List<Character>();
-			}
+      InitializeAddNewCharacters();
+      InitializeCharacters();
 		}
 
-		public Character Add(Character character)
+    private void InitializeAddNewCharacters()
+    {
+      if (addNewCharacters != null)
+      {
+        addNewCharacters.Clear();
+      }
+      else
+      {
+        addNewCharacters = new List<Character>();
+      }
+    }
+
+    private void InitializeCharacters()
+    {
+      if (characters == null)
+      {
+        characters = new List<List<Character>>();
+        int actorSideNum = Enum.GetValues(typeof(ActorSide)).Length;
+        for (int i = 0; i < actorSideNum; i++)
+        {
+          characters.Add(new List<Character>());
+
+        }
+      }
+      else
+      {
+        for (int i = 0; i < characters.Count; i++)
+        {
+          if (characters[i] != null) { characters[i].Clear(); }
+          else { characters[i] = new List<Character>(); }
+        }
+      }
+    }
+
+    public Character Add(Character character)
 		{
 			if (character == null)
 			{
@@ -80,14 +80,13 @@ namespace KamatoShooting.Actor
 
 		private void HitToCharacters()
 		{
-			foreach (var player in playerSide)
+
+			foreach (var player in GetCharactersRef(ActorSide.Player))
 			{
-				foreach (var enemy in enemySide)
+        if (player.isDead) { continue; }
+				foreach (var enemy in GetCharactersRef(ActorSide.Enemy))
 				{
-					if (player.IsLost() || enemy.IsLost())
-					{
-						continue;
-					}
+          if (enemy.isDead) { continue; }
 					if (player.IsCollision(enemy))
 					{
 						player.Hit(enemy);
@@ -99,23 +98,26 @@ namespace KamatoShooting.Actor
 
 		public void RemoveDeadCharacters()
 		{
-			playerSide.RemoveAll(p => p.IsLost());
-			enemySide.RemoveAll(e => e.IsLost());
+      foreach (var cs in characters)
+      {
+        cs.Where(c => c.isDead).ToList().ForEach(c => c.Shutdown());
+        cs.RemoveAll(c => c.isDead);
+      }
 		}
 
 		public void Update(GameTime gameTime)
 		{
-			foreach (var p in playerSide)
+			foreach (var p in GetCharactersRef(ActorSide.Player))
 			{
 				p.Update(gameTime);
 			}
 
-			foreach (var e in enemySide)
+			foreach (var e in GetCharactersRef(ActorSide.Enemy))
 			{
 				e.Update(gameTime);
 			}
 
-      foreach (var n in naturalSide)
+      foreach (var n in GetCharactersRef(ActorSide.Natural))
       {
         n.Update(gameTime);
       }
@@ -123,13 +125,13 @@ namespace KamatoShooting.Actor
 			{
         switch (newChara.actorSide) {
           case ActorSide.Player:
-					playerSide.Add(newChara);
+					GetCharactersRef(ActorSide.Player).Add(newChara);
             break;
           case ActorSide.Enemy:
-            enemySide.Add(newChara);
+            GetCharactersRef(ActorSide.Enemy).Add(newChara);
             break;
           default:
-            naturalSide.Add(newChara);
+            GetCharactersRef(ActorSide.Natural).Add(newChara);
             break;
         }
         newChara.Initialize();
@@ -142,15 +144,15 @@ namespace KamatoShooting.Actor
 
 		public void Draw( )
 		{
-      foreach (var n in naturalSide)
+      foreach (var n in GetCharactersRef(ActorSide.Natural))
       {
         n.Draw();
       }
-			foreach (var p in playerSide)
+			foreach (var p in GetCharactersRef(ActorSide.Player))
 			{
 				p.Draw();
 			}
-			foreach (var e in enemySide)
+			foreach (var e in GetCharactersRef(ActorSide.Enemy))
 			{
 				e.Draw();
 			}
@@ -158,8 +160,20 @@ namespace KamatoShooting.Actor
 
     public Player GetPlayer()
     {
-      if (playerSide.Count == 0) { return null; }
-      return (Player)playerSide[0];
+      if (GetCharactersRef(ActorSide.Player).Count == 0) { return null; }
+      return (Player)GetCharactersRef(ActorSide.Player).Find(c => c is Player);
+
+    }
+
+    private List<Character> GetCharactersRef(ActorSide side)
+    {
+      return characters[(int)side];
+    }
+
+    public  List<Character> GetCharacters(ActorSide side)
+    {
+      List<Character> c = GetCharactersRef(side);
+      return  c;
     }
 
 	}
