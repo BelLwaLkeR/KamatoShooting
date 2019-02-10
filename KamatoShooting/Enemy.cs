@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KamatoShooting.Actor.Bullets;
 using KamatoShooting.Def;
+using KamatoShooting.Device;
 using KamatoShooting.Util;
 using Microsoft.Xna.Framework;
 
@@ -16,21 +17,29 @@ namespace KamatoShooting.Actor
   class Enemy : Character
   {
     private Player player;
+
+    #region その他処理
     private PatternUpdate pattern;
     private Timer shotTimer;
+    private Sound sound;
 
-    public Enemy(Vector2 position, int endurance = 200) 
-      : base("black", position, 64,64, ActorSide.Enemy, endurance, 1)
+    public Enemy(Vector2 position, int endurance = 50)
+      : base("black", position, 64, 64, ActorSide.Enemy, endurance, 1)
     {
       characterManager.Add(this);
       pattern = new PatternUpdate();
       Initialize();
       shotTimer = new CountDownTimer(0.5f);
+      sound = GameDevice.Instance().GetSound();
     }
 
     public override void Hit(Character other)
     {
       Damage(1);
+      if (endurance <= 0)
+      {
+        sound.PlaySE("kill");
+      }
     }
 
     public override void Initialize()
@@ -41,12 +50,10 @@ namespace KamatoShooting.Actor
 
     public override void Shutdown()
     {
-
     }
 
     public override void Update(GameTime gameTime)
     {
-      shotTimer.Update(gameTime);
       if (shotTimer.IsTime())
       {
         Shot();
@@ -77,10 +84,11 @@ namespace KamatoShooting.Actor
     {
       this.pattern.AddPattern(time, pattern);
     }
+    #endregion
 
-    private void Shot()
+    protected virtual void Shot()
     {
-      Vector2 velocity = new Vector2(0,1);
+      Vector2 velocity = new Vector2(0, 1);
       new EnemyBullet(centerPosition, velocity);
     }
 

@@ -39,7 +39,6 @@ namespace KamatoShooting.Actor
 
 		public override void Update(GameTime gameTime)
 		{
-			timer.Update(gameTime);
 			if (timer.IsTime())
 			{
 				counter += 1;

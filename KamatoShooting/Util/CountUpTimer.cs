@@ -19,7 +19,12 @@ namespace KamatoShooting.Util
 			Initialize();
 		}
 
-		public override void Initialize()
+    public override void Finish()
+    {
+      currentTime = limitTime;
+    }
+
+    public override void Initialize()
 		{
 			currentTime = 0.0f;
 		}
@@ -34,7 +39,7 @@ namespace KamatoShooting.Util
 			return currentTime / limitTime;
 		}
 
-		public override void Update(GameTime gameTime)
+		protected override void AUpdate(GameTime gameTime)
 		{
 			currentTime = Math.Min(currentTime + 1, limitTime);
 		}

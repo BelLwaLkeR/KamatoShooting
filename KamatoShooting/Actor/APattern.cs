@@ -12,10 +12,12 @@ namespace KamatoShooting.Actor
   {
     protected List<Pattern> patterns;
     protected int patternCount;
+    private Timer timer;
 
     public APattern()
     {
       patterns = new List<Pattern>();
+      timer = new CountDownTimer();
       Initialize();
 
     }
@@ -27,7 +29,7 @@ namespace KamatoShooting.Actor
 
     public void AddPattern(float sec, PatternMethod pattern)
     {
-      patterns.Add(new Pattern(new CountDownTimer(sec), pattern));
+      patterns.Add(new Pattern(sec, pattern));
     }
     public void ClearPattern()
     {
@@ -45,6 +47,30 @@ namespace KamatoShooting.Actor
       else if (count >= patterns.Count) { patternCount = patterns.Count - 1; }
       else { patternCount = 0; }
     }
-    public abstract void Update(GameTime gameTime);
+
+    public void Update(GameTime gameTime)
+    {
+      if (patternCount < 0 ){ return; }
+      if (patternCount >= patterns.Count) { return; }
+
+      AUpdate(gameTime);
+      if (timer.IsTime())
+      {
+        Next();
+      }
+    }
+
+    public void Next()
+    {
+
+      patternCount++;
+      if (patternCount >= patterns.Count) { return; }
+      timer.ResetTime(patterns[patternCount].time);
+      ANext();
+    }
+
+    protected virtual void ANext()
+    { }
+    protected abstract void AUpdate(GameTime gameTime);
   }
 }

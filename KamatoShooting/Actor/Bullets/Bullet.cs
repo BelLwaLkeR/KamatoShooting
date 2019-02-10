@@ -17,13 +17,15 @@ namespace KamatoShooting.Actor
 	class Bullet : Character
 	{
 		private Vector2 velocity;
-		public Bullet(Vector2 position, Vector2 velocity, ActorSide side) : base("gyoza",position,16,16, side)
+
+    public Bullet(Vector2 position, Vector2 velocity, ActorSide side) : base("gyoza",position,16,16, side)
 		{
 			this.velocity = velocity;
-		}
+    }
 
 		public override void Initialize()
 		{
+
 		}
 
 		public override void Update(GameTime gameTime)
@@ -39,6 +41,11 @@ namespace KamatoShooting.Actor
 
 		public override void Hit(Character other)
 		{
+      if (!(other is Enemy)) { return; }
+
+
+        GameDevice.Instance().GetSound().PlaySE("hit");
+
       Die();
 		}
 

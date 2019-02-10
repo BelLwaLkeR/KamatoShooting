@@ -18,13 +18,17 @@ namespace KamatoShooting.Actor
       base.Initialize();
     }
 
-
-    public override void Update(GameTime gameTime)
+    protected override void ANext()
     {
-      if (patterns.Count <= patternCount) { return; }
-      patterns[patternCount].timer.Update(gameTime);
-      if (!done) { patterns[patternCount].patternMethod(); done = true; }
-      if (patterns[patternCount].timer.IsTime()) { patternCount++; done = false; }
+      done = false;
+    }
+
+    protected override void AUpdate(GameTime gameTime)
+    {
+      if (done) { return; }
+      patterns[patternCount].patternMethod();
+      done = true; 
+      
     }
 
 

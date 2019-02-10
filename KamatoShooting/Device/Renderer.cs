@@ -50,8 +50,8 @@ namespace KamatoShooting.Device
         return;
       }
       //画像の読み込みとDictionaryへアセット名と画像を登録
-      textures.Add(assetName, contentManager.Load<Texture2D>(filepath + assetName));
-
+      Texture2D t = contentManager.Load<Texture2D>(filepath + assetName);
+      textures.Add(assetName, t);
     }
 
     public void LoadContent(string assetName, Texture2D texture)
@@ -130,7 +130,7 @@ namespace KamatoShooting.Device
     /// <param name="alpha">アルファ値</param>
     public void DrawTexture(string assetName, Vector2 position, Vector2 centerPosition, float rotateAngle, float alpha = 1.0f)
     {
-      DrawTexture(assetName, position, centerPosition, rotateAngle, Vector2.One, alpha);
+      DrawTexture(assetName, position+centerPosition, centerPosition, rotateAngle, Vector2.One, alpha);
     }
 
     /// <summary>

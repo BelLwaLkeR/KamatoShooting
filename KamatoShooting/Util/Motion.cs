@@ -56,7 +56,6 @@ namespace KamatoShooting.Util
 				return;
 			}
 
-			timer.Update(gameTime);
 			if (timer.IsTime())
 			{
 				timer.Initialize();

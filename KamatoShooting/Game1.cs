@@ -66,6 +66,7 @@ namespace KamatoShooting
       renderer.LoadContent("particle");
       renderer.LoadContent("particleBlue");
       renderer.LoadContent("EnemyBullet");
+      renderer.LoadContent("Cloud");
 
 
 
@@ -75,6 +76,9 @@ namespace KamatoShooting
       sound.LoadBGM("gameplaybgm", filepath);
 
       sound.LoadSE("shot", filepath);
+      sound.LoadSE("die", filepath);
+      sound.LoadSE("hit", filepath);
+      sound.LoadSE("kill", filepath);
 
 
       sceneManager = new SceneManager();

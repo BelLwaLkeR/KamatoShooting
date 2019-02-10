@@ -44,7 +44,6 @@ namespace KamatoShooting.Actor
 		}
 		private void DyingUpdate(GameTime gameTime)
 		{
-			timer.Update(gameTime);
 			if (timer.IsTime())
 			{
 				isDisplay = !isDisplay;

@@ -10,12 +10,9 @@ namespace KamatoShooting.Actor
 {
   class PatternUpdate:APattern
   {
-    public override void Update(GameTime gameTime)
+    protected override void AUpdate(GameTime gameTime)
     {
-      if (patterns.Count <= patternCount) { return; }
-      patterns[patternCount].timer.Update(gameTime);
       patterns[patternCount].patternMethod();
-      if (patterns[patternCount].timer.IsTime()) { patternCount++; }
     }
   }
 }

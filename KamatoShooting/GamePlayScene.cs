@@ -11,6 +11,7 @@ using KamatoShooting.Util;
 using Microsoft.Xna.Framework.Input;
 using KamatoShooting.Actor.Enemys;
 using KamatoShooting.Actor.Bullets;
+using KamatoShooting.BackGround;
 
 namespace KamatoShooting.Scene
 {
@@ -24,15 +25,16 @@ namespace KamatoShooting.Scene
     private Renderer renderer;
     private Player player;
     private PatternOnce pattern;
+    private TimerManager timerManager;
 
-
-		public GamePlayScene()
+		public GamePlayScene() 
 		{
 			isEnd = false;
       GameDevice gameDevice = GameDevice.Instance();
 			sound = gameDevice.GetSound();
       renderer = gameDevice.GetRenderer();
       characterManager = CharacterManager.GetInstance();
+      timerManager = TimerManager.GetInstance();
 		}
 
 		public void AddScore(int num)
@@ -44,10 +46,6 @@ namespace KamatoShooting.Scene
 			renderer.Begin();
       
 			characterManager.Draw();
-			//if (timer.IsTime())
-			//{
-			//	renderer.DrawTexture("ending", new Vector2(150, 150));
-			//}
 			renderer.End();
 		}
 
@@ -55,8 +53,12 @@ namespace KamatoShooting.Scene
 		{
       isEnd = false;
       float scrollSpeed = 1;
-      characterManager.Add(new BackGround(scrollSpeed, 0));
-      characterManager.Add(new BackGround(scrollSpeed, -1));
+      characterManager.Add(new Ground(scrollSpeed, 0));
+      characterManager.Add(new Ground(scrollSpeed, -1));
+      for (int i = 0; i < 5; i++)
+      {
+        characterManager.Add(new Cloud());
+      }
 
       player = new Player(new Vector2(460, 400));
       characterManager.Add(player);
@@ -85,9 +87,7 @@ namespace KamatoShooting.Scene
 			sound.PlayBGM("gameplaybgm");
 			characterManager.Update(gameTime);
       pattern.Update(gameTime);
-
-
-
+      timerManager.Update(gameTime);
 
       if (Input.IsKeyDown(Keys.Z))
       {
@@ -104,6 +104,7 @@ namespace KamatoShooting.Scene
       SetWave1();
       SetWait(10);
       SetWave2();
+      pattern.AddPattern(1, SetPattern);
     }
 
     private void SetWait(float sec)

@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KamatoShooting.Device;
 using Microsoft.Xna.Framework;
 
 namespace KamatoShooting.Actor
 {
-  class HormingBullet : Character
+  class HormingBullet : Bullet
   {
     private Character target;
     private Vector2 direction;
-    private float speed;
+    private const float speed = 10;
     private float angle { get { return (float)Math.Atan2(direction.Y, direction.X); } }
 
-    public HormingBullet(Vector2 position) : base("gyoza", position, 16,16, ActorSide.Player, 1, 0)
+    public HormingBullet(Vector2 position) : base(position, new Vector2(0,speed),ActorSide.Player)
     {
     }
 
     public override void Initialize()
     {
       target = null;
-      speed = 10;
       direction = new Vector2(0,-1);
     }
 
@@ -42,7 +42,7 @@ namespace KamatoShooting.Actor
       }
       MoveForward();
 
-      if (position.X < -64) { endurance = 0; }
+      if (position.Y < -64) { endurance = 0; }
     }
 
     private void MoveForward()
@@ -64,12 +64,14 @@ namespace KamatoShooting.Actor
 
     public override void Draw()
     {
-      renderer.DrawTexture(assetName, position, Vector2.One * 8, angle);
+       renderer.DrawTexture(assetName, position, imageSize/2, angle);
     }
 
     public override void Hit(Character other)
     {
       if (!(other is Enemy)) { return; }
+
+        GameDevice.Instance().GetSound().PlaySE("hit");
       endurance = 0;
     }
   }

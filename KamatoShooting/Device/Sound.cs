@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using KamatoShooting.Util;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using System;
@@ -6,16 +7,48 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace KamatoShooting.Device
 {
+  class SE
+  {
+    public SoundEffect se { private set; get; }
+    public Timer timer { private set; get; }
+    public SE(SoundEffect se)
+    {
+      this.se = se;
+      timer = new CountDownTimer(se.Duration.Milliseconds/1000f);
+    }
+
+    public void Play()
+    {
+      if (!IsPlayFinish()) { return; }
+      PlayForce();
+    }
+
+    public void PlayForce()
+    {
+      se.Play();
+      timer.Initialize();
+    }
+
+    public bool IsPlayFinish()
+    {
+      return timer.IsTime();
+    }
+
+    public SoundEffectInstance CreateInstance()
+    {
+      return se.CreateInstance();
+    }
+  }
+
 	class Sound
 	{
 		#region フィールドとコンストラクタ
 		private ContentManager contentManager;
 		private Dictionary<string, Song> bgms;
-		private Dictionary<string, SoundEffect> soundEffects;
+		private Dictionary<string, SE> soundEffects;
 		private Dictionary<string, SoundEffectInstance> seInstances;
 		private Dictionary<string, SoundEffectInstance> sePlayDict;
 		private string currentBGM;
@@ -25,7 +58,7 @@ namespace KamatoShooting.Device
 			contentManager = content;
 			MediaPlayer.IsRepeating = true;
 			bgms = new Dictionary<string, Song>();
-			soundEffects = new Dictionary<string, SoundEffect>();
+			soundEffects = new Dictionary<string, SE>();
 			seInstances = new Dictionary<string, SoundEffectInstance>();
 			sePlayDict = new Dictionary<string, SoundEffectInstance>();
 			currentBGM = null;
@@ -124,18 +157,29 @@ namespace KamatoShooting.Device
 			{
 				return;
 			}
-			soundEffects.Add(name, contentManager.Load<SoundEffect>(filepath+name));
+      SoundEffect se = contentManager.Load<SoundEffect>(filepath + name);
+      soundEffects.Add(name, new SE(se));
+
 		}
 
-		public void PlaySE(string name)
+		public void PlaySE(string name, bool playForce=false)
 		{
 			Debug.Assert(soundEffects.ContainsKey(name), ErrorMessage(name));
-			soundEffects[name].Play();
-		}
-		#endregion
+      if (playForce)
+      {
+        soundEffects[name].PlayForce();
+      }
+      else
+      {
 
-		#region WAVインスタンス関連
-		public void CreateSEInstance(string name)
+			soundEffects[name].Play();
+      }
+		}
+
+    #endregion
+
+    #region WAVインスタンス関連
+    public void CreateSEInstance(string name)
 		{
 			if (seInstances.ContainsKey(name))
 			{

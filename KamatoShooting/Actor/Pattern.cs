@@ -10,12 +10,12 @@ namespace KamatoShooting.Actor
   public delegate void PatternMethod();
   struct Pattern
   {
-    public Timer timer;
+    public float time;
     public PatternMethod patternMethod;
 
-    public Pattern(Timer timer, PatternMethod patternMethod)
+    public Pattern(float time, PatternMethod patternMethod)
     {
-      this.timer = timer;
+      this.time = time;
       this.patternMethod = patternMethod;
     }
   }

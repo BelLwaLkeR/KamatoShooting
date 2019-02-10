@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Actor\ActorSide.cs" />
     <Compile Include="Actor\APattern.cs" />
-    <Compile Include="Actor\BackGround.cs" />
+    <Compile Include="BackGround\BackGround.cs" />
     <Compile Include="Actor\Bullets\Bullet.cs" />
     <Compile Include="Actor\Bullets\BulletExplosion.cs" />
     <Compile Include="Actor\Bullets\BurstEffect.cs" />
@@ -51,14 +51,15 @@
     <Compile Include="Actor\Bullets\NoMoveEnemy.cs" />
     <Compile Include="Actor\Character.cs" />
     <Compile Include="Actor\CharacterManager.cs" />
-    <Compile Include="Actor\Enemys\Enemy.cs" />
-    <Compile Include="Actor\Enemys\Enemy1.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="Enemy1.cs" />
     <Compile Include="Actor\Enemys\EnemyBlack.cs" />
     <Compile Include="Actor\Bullets\HormingBullet.cs" />
     <Compile Include="Actor\Pattern.cs" />
     <Compile Include="Actor\PatternUpdate.cs" />
     <Compile Include="Actor\PatternOnce.cs" />
     <Compile Include="Actor\Player.cs" />
+    <Compile Include="BackGround\Cloud.cs" />
     <Compile Include="Def\Screen.cs" />
     <Compile Include="Device\GameDevice.cs" />
     <Compile Include="Device\Input.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\Ending.cs" />
-    <Compile Include="Scene\GamePlayScene.cs" />
+    <Compile Include="GamePlayScene.cs" />
     <Compile Include="Scene\GoodEnding.cs" />
     <Compile Include="Scene\IScene.cs" />
     <Compile Include="Scene\Scene.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Util\Range.cs" />
     <Compile Include="Util\ScoreManager.cs" />
     <Compile Include="Util\Timer.cs" />
+    <Compile Include="Util\TimerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
