@@ -72,5 +72,10 @@ namespace KamatoShooting.Actor
     protected virtual void ANext()
     { }
     protected abstract void AUpdate(GameTime gameTime);
+
+    public void SetWait(float sec)
+    {
+      AddPattern(sec, () => { });
+    }
   }
 }

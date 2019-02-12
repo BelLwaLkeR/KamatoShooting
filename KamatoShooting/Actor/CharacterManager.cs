@@ -96,7 +96,12 @@ namespace KamatoShooting.Actor
 			}
 		}
 
-		public void RemoveDeadCharacters()
+    public void ClearEnemys()
+    {
+      GetCharactersRef(ActorSide.Enemy).ForEach(e => e.Damage(10000));
+    }
+
+    public void RemoveDeadCharacters()
 		{
       foreach (var cs in characters)
       {

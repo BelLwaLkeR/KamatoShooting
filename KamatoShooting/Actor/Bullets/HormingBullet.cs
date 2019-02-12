@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace KamatoShooting.Actor
 {
-  class HormingBullet : Bullet
+  class HormingBullet : PlayerBullet
   {
     private Character target;
     private Vector2 direction;

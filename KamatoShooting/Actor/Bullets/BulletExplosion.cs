@@ -14,7 +14,6 @@ namespace KamatoShooting.Actor
     private float scale;
     private float alpha;
     private float angle;
-    private Vector2 centerPosition;
 
     public BulletExplosion(Vector2 position) : 
       this(position, 0)
@@ -22,7 +21,6 @@ namespace KamatoShooting.Actor
     }
     public BulletExplosion(Vector2 position, float angle) : base("gyoza", position, Vector2.Zero,0, ActorSide.Natural, 999, 0)
     {
-      centerPosition = Vector2.One * 8;
       alpha = 1;
       scale = 1;
       this.angle = angle;
@@ -47,7 +45,7 @@ namespace KamatoShooting.Actor
 
     public override void Draw()
     {
-      renderer.DrawTexture(assetName, position, centerPosition, angle, Vector2.One * scale, alpha);
+      renderer.DrawTexture(assetName, position, imageSize/2, angle, Vector2.One * scale, alpha);
     }
 
     public override void Hit(Character other)

@@ -11,7 +11,7 @@ namespace KamatoShooting.Actor.Bullets
   class EnemyBullet : Character
   {
     private Vector2 velocity;
-    public EnemyBullet( Vector2 position, Vector2 velocity) : base("EnemyBullet", position, 32,28, ActorSide.Enemy, 100)
+    public EnemyBullet( Vector2 position, Vector2 velocity) : base("EnemyBullet", position, 32,5, ActorSide.Enemy, 100)
     {
 
       this.velocity = velocity;

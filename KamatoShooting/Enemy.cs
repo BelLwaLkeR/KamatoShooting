@@ -88,7 +88,7 @@ namespace KamatoShooting.Actor
 
     protected virtual void Shot()
     {
-      Vector2 velocity = new Vector2(0, 1);
+      Vector2 velocity = new Vector2(0, 10);
       new EnemyBullet(centerPosition, velocity);
     }
 

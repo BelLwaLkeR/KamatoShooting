@@ -44,7 +44,7 @@
     <Compile Include="Actor\ActorSide.cs" />
     <Compile Include="Actor\APattern.cs" />
     <Compile Include="BackGround\BackGround.cs" />
-    <Compile Include="Actor\Bullets\Bullet.cs" />
+    <Compile Include="Actor\Bullets\PlayerBullet.cs" />
     <Compile Include="Actor\Bullets\BulletExplosion.cs" />
     <Compile Include="Actor\Bullets\BurstEffect.cs" />
     <Compile Include="Actor\Bullets\EnemyBullet.cs" />
@@ -52,7 +52,7 @@
     <Compile Include="Actor\Character.cs" />
     <Compile Include="Actor\CharacterManager.cs" />
     <Compile Include="Enemy.cs" />
-    <Compile Include="Enemy1.cs" />
+    <Compile Include="WaveEnemy.cs" />
     <Compile Include="Actor\Enemys\EnemyBlack.cs" />
     <Compile Include="Actor\Bullets\HormingBullet.cs" />
     <Compile Include="Actor\Pattern.cs" />

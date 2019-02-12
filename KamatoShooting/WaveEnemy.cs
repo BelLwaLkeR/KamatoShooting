@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KamatoShooting.Actor.Bullets;
 using KamatoShooting.Def;
 using KamatoShooting.Device;
 using Microsoft.Xna.Framework;
 
 namespace KamatoShooting.Actor.Enemys
 {
-  class Enemy1 : Enemy
+  class WaveEnemy : Enemy
   {
-    private float speed=3;
-    public Enemy1(Vector2 position) : base(position,20)
+    #region その他処理
+    private float speed=2;
+    public WaveEnemy(Vector2 position) : base(position,20)
     {
     }
 
@@ -42,9 +44,11 @@ namespace KamatoShooting.Actor.Enemys
     }
     private void SetPattern()
     {
-      AddPattern(999, ()=> { position.Y += speed;position.X = (float)Math.Sin(MathHelper.ToRadians(position.Y/2)) * (Screen.Width / 2 - 100)+ Screen.Width / 2; });
+      AddPattern(999, ()=> {
+        position.Y += speed;
+        position.X = (float)Math.Sin(MathHelper.ToRadians(position.Y/2)) * (Screen.Width / 2 - 100)+ Screen.Width / 2; });
     }
-
+    #endregion
     protected override void Shot()
     {
 

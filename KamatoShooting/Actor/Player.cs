@@ -41,7 +41,7 @@ namespace KamatoShooting.Actor
 		public override void Initialize()
 		{
       invinsibleTimer.Initialize();
-			position = new Vector2(Screen.Width/2-imageSize.X, Screen.Height);
+			position = new Vector2(Screen.Width/2-imageSize.X, Screen.Height*4/5);
       deadPattern = new PatternOnce();
 
     }
@@ -62,15 +62,12 @@ namespace KamatoShooting.Actor
 
     private void InvinsibleUpdate(GameTime gameTime)
     {
-      position.Y -= 2;
+      //position.Y -= 2;
+      characterManager.ClearEnemys();
     }
 
     private void NormalUpdate(GameTime gameTime)
     {
-      Vector2 velocity = Input.Velocity();
-      float speed = 5.0f;
-      position = position + velocity * speed;
-
       var min = Vector2.Zero;
       var max = new Vector2(Screen.Width - 64, Screen.Height - 64);
       position = Vector2.Clamp(position, min, max);
@@ -91,7 +88,7 @@ namespace KamatoShooting.Actor
       for (int i = -1; i <= 1; i += 1)
       {
         Vector2 bulletPosition = centerPosition + new Vector2(16*i, -16+((i*i)%2)*8);
-        characterManager.Add(new Bullet(bulletPosition, new Vector2(0,-10), ActorSide.Player));
+        characterManager.Add(new PlayerBullet(bulletPosition, new Vector2(0,-10), ActorSide.Player));
       }
     }
 

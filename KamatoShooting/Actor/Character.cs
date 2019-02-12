@@ -22,8 +22,7 @@ namespace KamatoShooting.Actor
     
     protected   CharacterManager characterManager;
     protected   State     state;
-    protected   Vector2   position;
-    public      Vector2   Position { get { return position; } }
+    public   Vector2   position;
 		protected   string    assetName;
     public      ActorSide actorSide { protected set; get; }
     protected   int       score;

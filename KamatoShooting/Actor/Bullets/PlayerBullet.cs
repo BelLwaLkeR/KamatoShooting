@@ -14,11 +14,11 @@ using KamatoShooting.Util;
 
 namespace KamatoShooting.Actor
 {
-	class Bullet : Character
+	class PlayerBullet : Character
 	{
 		private Vector2 velocity;
 
-    public Bullet(Vector2 position, Vector2 velocity, ActorSide side) : base("gyoza",position,16,16, side)
+    public PlayerBullet(Vector2 position, Vector2 velocity, ActorSide side) : base("gyoza",position,16,16, side)
 		{
 			this.velocity = velocity;
     }
@@ -32,6 +32,7 @@ namespace KamatoShooting.Actor
 		{
 			position += velocity;
       if (position.Y > Screen.Height) { Die(); }
+      if (position.Y < -64) { Die(); }
 		}
 
 		public override void Shutdown()
