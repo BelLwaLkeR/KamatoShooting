@@ -31,6 +31,14 @@ namespace KamatoShooting.Actor
     public      int       endurance { protected set; get; }
     public      Renderer  renderer;
     protected     Vector2   imageSize;
+    private EnemyType enemyType1;
+    private object enemyType2;
+    private int v1;
+    private int v2;
+    private ActorSide enemy;
+    private int v3;
+    private EnemyType enemyType;
+
     public      Vector2   centerPosition { get { return position + imageSize / 2; } }
 
     /// <summary>
@@ -66,7 +74,12 @@ namespace KamatoShooting.Actor
       this.position = position -imageSize/2;
 		}
 
-		public abstract void Initialize();
+    public Character(EnemyType enemyType, Vector2 position, Vector2 imageSize, float size, ActorSide actorSide, int endurance = 1, int score = 1)
+      :this(enemyType.ToString(), position, imageSize, size, actorSide, endurance, score)
+    {
+    }
+
+    public abstract void Initialize();
 		public abstract void Update(GameTime gameTime);
 		public abstract void Shutdown();
     public abstract void Hit(Character other);

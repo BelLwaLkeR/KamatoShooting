@@ -11,10 +11,16 @@ using Microsoft.Xna.Framework;
 
 namespace KamatoShooting.Actor
 {
+  public enum EnemyType
+  {
+    Kurotama,
+    Shirotama,
+    Paddle,
+    PrincePachi
+  };
 
 
-
-  class Enemy : Character
+  abstract class Enemy : Character
   {
     private Player player;
 
@@ -23,8 +29,8 @@ namespace KamatoShooting.Actor
     private Timer shotTimer;
     private Sound sound;
 
-    public Enemy(Vector2 position, int endurance = 50)
-      : base("black", position, 64, 64, ActorSide.Enemy, endurance, 1)
+    public Enemy(Vector2 position, int endurance = 50, EnemyType enemyType)
+      : base(enemyType, position, 64, 64, ActorSide.Enemy, endurance, 1)
     {
       characterManager.Add(this);
       pattern = new PatternUpdate();

@@ -27,6 +27,7 @@ namespace KamatoShooting.Scene
     private Player player;
     private PatternOnce pattern;
     private TimerManager timerManager;
+    private GameLogic gameLogic;
 
     public GamePlayScene()
     {
@@ -100,38 +101,11 @@ namespace KamatoShooting.Scene
 
 
 
-    private void SetWait(float sec)
-    {
-      pattern.AddPattern(sec, () => { });
-    }
 
-    private void SetWave1()
-    {
-      for (int i = 0; i < 5; i++)
-      {
-        pattern.AddPattern(0.2f, () => { new WaveEnemy(new Vector2(100, -64)); });
-      }
-    }
-    private void SetWave2()
-    {
-      pattern.AddPattern(8, () => { Enumerable.Range(0, 5).ToList().ForEach(e => { new Enemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
-      pattern.AddPattern(8, () => { Enumerable.Range(0, 5).ToList().ForEach(e => { new Enemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
-      pattern.AddPattern(8, () => { Enumerable.Range(0, 5).ToList().ForEach(e => { new Enemy(new Vector2(Screen.Width / 2 + (150 * (-5 / 2 + e) - 32), -64 + (float)Math.Sin(MathHelper.ToRadians(180 / 4 * e)) * 64)); }); });
-
-    }
-
-    #endregion
 
     private void SetPattern()
     {
-      pattern = new PatternOnce();
-      SetWait(5);
-      SetWave1();
-      SetWait(3);
-      SetWave1();
-      SetWait(10);
-      SetWave2();
-      pattern.AddPattern(1, SetPattern);
+
     }
 
     public void Update(GameTime gameTime)
@@ -139,14 +113,11 @@ namespace KamatoShooting.Scene
       OtherUpdate(gameTime);
       // この下に更新ロジックを記述
 
-      float speed = 5;
 
-      if (Input.IsKeyDown(Keys.Left))   { player.position.X -= speed; }
-      if (Input.IsKeyDown(Keys.Right))  { player.position.X += speed; }
-      if (Input.IsKeyDown(Keys.Up))     { player.position.Y -= speed; }
-      if (Input.IsKeyDown(Keys.Down))   { player.position.Y += speed; }
 
 
     }
   }
+
+
 }
